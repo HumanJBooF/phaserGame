@@ -6,13 +6,13 @@ export default class Player {
         anims.create({
             key: "player-walk",
             frames: anims.generateFrameNumbers("characters", { start: 0, end: 4 }),
-            frameRate: 8,
+            frameRate: 10,
             repeat: -1
         });
         anims.create({
             key: "player-walk-back",
             frames: anims.generateFrameNumbers("characters", { start: 20, end: 22 }),
-            frameRate: 8,
+            frameRate: 10,
             repeat: -1
         });
 
@@ -33,7 +33,7 @@ export default class Player {
     update () {
         const keys = this.keys;
         const sprite = this.sprite;
-        const speed = 450;
+        const speed = 800;
         const prevVelocity = sprite.body.velocity.clone();
 
         // Stop any previous movement from the last frame
