@@ -4,24 +4,24 @@ export default class Player {
 
         const anims = scene.anims;
         anims.create({
-            key: "player-walk",
+            key: "p-walk",
             frames: anims.generateFrameNumbers("characters", { start: 0, end: 4 }),
             frameRate: 10,
             repeat: -1
         });
         anims.create({
-            key: "player-walk-back",
+            key: "p-walk-back",
             frames: anims.generateFrameNumbers("characters", { start: 20, end: 22 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.sprite = scene.physics.add
-            .sprite(x, y, "characters", 0)
+            .sprite(x, y, 'characters', 0)
             .setSize(22, 33)
             .setOffset(23, 27);
 
-        this.sprite.anims.play("player-walk-back");
+        this.sprite.anims.play("p-walk-back");
 
         this.keys = scene.input.keyboard.createCursorKeys();
     }
@@ -33,7 +33,7 @@ export default class Player {
     update () {
         const keys = this.keys;
         const sprite = this.sprite;
-        const speed = 800;
+        const speed = 400;
         const prevVelocity = sprite.body.velocity.clone();
 
         // Stop any previous movement from the last frame
@@ -60,9 +60,9 @@ export default class Player {
 
         // Update the animation last and give left/right animations precedence over up/down animations
         if (keys.left.isDown || keys.right.isDown || keys.down.isDown) {
-            sprite.anims.play("player-walk", true);
+            sprite.anims.play("p-walk", true);
         } else if (keys.up.isDown) {
-            sprite.anims.play("player-walk-back", true);
+            sprite.anims.play("p-walk-back", true);
         } else {
             sprite.anims.stop();
 

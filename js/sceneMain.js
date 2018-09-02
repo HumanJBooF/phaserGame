@@ -10,9 +10,7 @@ export default class DungeonScene extends Phaser.Scene {
     }
     preload () {
         this.load.image('tiles', '../assets/tilesets/tileSet.png');
-        this.load.spritesheet(
-            'characters',
-            '../assets/spritesheets/char.png',
+        this.load.spritesheet('characters', '../assets/spritesheets/char.png',
             {
                 frameWidth: 64,
                 frameHeight: 64,
@@ -31,12 +29,13 @@ export default class DungeonScene extends Phaser.Scene {
             height: 50,
             doorPadding: 2,
             rooms: {
-                width: { min: 7, max: 15, onlyOdd: true },
-                height: { min: 7, max: 15, onlyOdd: true }
+                width: { min: 7, max: 21, onlyOdd: true },
+                height: { min: 7, max: 21, onlyOdd: true }
             }
         });
 
         this.dungeon.drawToConsole();
+
         // blank tile map mathing the dungeon
         const map = this.make.tilemap({
             tileWidth: 48,
@@ -54,13 +53,12 @@ export default class DungeonScene extends Phaser.Scene {
         // using arrow function so 'this' refers to our scene
         this.dungeon.rooms.forEach(room => {
             const { x, y, width, height, left, right, top, bottom } = room;
-
             this.groundLayer.weightedRandomize(x + 1, y + 1, width - 2, height - 2, TILES.FLOOR);
 
             // tiles for the corners
             this.groundLayer.putTileAt(TILES.WALL.TOP_LEFT, left, top);
             this.groundLayer.putTileAt(TILES.WALL.TOP_RIGHT, right, top);
-            this.groundLayer.putTileAt(TILES.WALL.BOTTOM_LEFT, right, bottom);
+            this.groundLayer.putTileAt(TILES.WALL.BOTTOM_RIGHT, right, bottom);
             this.groundLayer.putTileAt(TILES.WALL.BOTTOM_LEFT, left, bottom);
 
             // fill the walls
@@ -88,7 +86,7 @@ export default class DungeonScene extends Phaser.Scene {
         // Separate out the rooms into:
         //  The starting room (index = 0)
         //  A random room to be designated as the end room (with stairs and nothing else)
-        //  An array of 90% of the remaining rooms, for placing random stuff (leaving 10% empty)
+        //  An array of 90% of the remaining rooms, for placing random stuff
         const rooms = this.dungeon.rooms.slice();
         const startRoom = rooms.shift();
         const endRoom = Phaser.Utils.Array.RemoveRandomElement(rooms);
@@ -157,13 +155,13 @@ export default class DungeonScene extends Phaser.Scene {
         this.add
             .text(16, 16, `Look for some stairs. Keep going.... \nCurrent level: ${this.level}`, {
                 font: '20px monospace',
-                fill: '#000000',
+                fill: '#ff0000',
                 padding: { x: 20, y: 20 },
-                backgroundColor: '#ffffff'
+                backgroundColor: '#cccccc'
             }).setScrollFactor(0);
     }
 
-    update (time, delta) {
+    update () {
         if (this.hasPlayerReachedStairs) return;
 
         this.player.update();

@@ -14,17 +14,10 @@ const TILE_MAPPING = {
     POT: [{ index: 13, weight: 1 }, { index: 32, weight: 1 }, { index: 51, weight: 1 }],
     DOOR: {
         TOP: [40, 6, 38],
-        LEFT: [
-            [40],
-            [6],
-            [2]
+        LEFT: [[40], [6], [2]
         ],
         BOTTOM: [2, 6, 0],
-        RIGHT: [
-            [38],
-            [6],
-            [0]
-        ]
+        RIGHT: [[38], [6], [0]]
     },
     CHEST: 166,
     STAIRS: 81,

@@ -1,11 +1,9 @@
-/**
- * A small helper class that can take control of our shadow tilemap layer. It keeps track of which
- * room is currently active.
- */
+
 export default class TilemapVisibility {
     constructor(shadowLayer) {
         this.shadowLayer = shadowLayer;
         this.activeRoom = null;
+        console.log(shadowLayer)
     }
 
     setActiveRoom (room) {
