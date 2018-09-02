@@ -5,8 +5,9 @@
 ### _Currently it is only playable from a local server_
 ---
 ### *Upcoming Additions/Fixes*
-- [] **Fix the random 'blank tiles'** 
-- [] **Fix the issue with not being able to walk through some doors**
+- * [x] **Fix the random 'blank tiles'** 
+- * [x] **Fix the issue with not being able to walk through some doors**
+- [] **Fix an issue with some of the walls being out of place**
 - [] **Add enemines to fight**
 - [] **Make the chest open**
 - [] **Add an inventory** 

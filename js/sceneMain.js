@@ -18,6 +18,7 @@ export default class DungeonScene extends Phaser.Scene {
                 spacing: 2
             }
         );
+
     }
 
     create () {
@@ -25,16 +26,27 @@ export default class DungeonScene extends Phaser.Scene {
         this.hasPlayerReachedStairs = false;
 
         this.dungeon = new Dungeon({
-            width: 50,
-            height: 50,
-            doorPadding: 2,
+            width: 100,
+            height: 100,
+            doorPadding: 1,
+            randomSeed: 0,
             rooms: {
-                width: { min: 7, max: 21, onlyOdd: true },
-                height: { min: 7, max: 21, onlyOdd: true }
+                width: { min: 7, max: 15, onlyOdd: true },
+                height: { min: 7, max: 15, onlyOdd: true }
             }
         });
 
-        this.dungeon.drawToConsole();
+        this.dungeon.drawToConsole({
+            empty: " ",
+            emptyAttributes: "rgb(0, 0, 0)",
+            wall: "#",
+            wallAttributes: "rgb(255, 0, 0)",
+            floor: "0",
+            floorAttributes: "rgb(210, 210, 210)",
+            door: "x",
+            doorAttributes: "rgb(0, 0, 255)",
+            containerAttributes: "15px"
+        });
 
         // blank tile map mathing the dungeon
         const map = this.make.tilemap({
@@ -64,14 +76,14 @@ export default class DungeonScene extends Phaser.Scene {
             // fill the walls
             this.groundLayer.weightedRandomize(left + 1, top, width - 2, 1, TILES.WALL.TOP);
             this.groundLayer.weightedRandomize(left + 1, bottom, width - 2, 1, TILES.WALL.BOTTOM);
-            this.groundLayer.weightedRandomize(left, top + 1, 1, height - 2, 1, TILES.WALL.LEFT);
+            this.groundLayer.weightedRandomize(left, top + 1, 1, height - 2, TILES.WALL.LEFT);
             this.groundLayer.weightedRandomize(right, top + 1, 1, height - 2, TILES.WALL.RIGHT);
 
             // dungeons have rooms with doors, each door has an x & y relative to rooms location
             let doors = room.getDoorLocations();
             for (let i = 0; i < doors.length; i++) {
                 if (doors[i].y === 0) {
-                    this.groundLayer.putTilesAt(TILES.DOOR.TOP, x + doors[i].x - 1, y + doors[i].y);
+                    this.groundLayer.putTilesAt(TILES.DOOR.TOP, x + doors[i].x, y + doors[i].y);
                 } else if (doors[i].y === room.height - 1) {
                     this.groundLayer.putTilesAt(TILES.DOOR.BOTTOM, x + doors[i].x, y + doors[i].y);
                 } else if (doors[i].x === 0) {
@@ -137,8 +149,8 @@ export default class DungeonScene extends Phaser.Scene {
 
         // put player in the first room
         const playerRoom = startRoom;
-        const x = map.tileToWorldX(playerRoom.centerX);
-        const y = map.tileToWorldY(playerRoom.centerY);
+        const x = map.tileToWorldX(playerRoom.centerX + 1);
+        const y = map.tileToWorldY(playerRoom.centerY + 1);
         this.player = new Player(this, x, y);
 
         // watch the player and tilemap layers for collisions
@@ -161,7 +173,7 @@ export default class DungeonScene extends Phaser.Scene {
             }).setScrollFactor(0);
     }
 
-    update () {
+    update (time, delta) {
         if (this.hasPlayerReachedStairs) return;
 
         this.player.update();
