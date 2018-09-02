@@ -6,7 +6,7 @@
 ---
 ### *Upcoming Additions/Fixes*
 - [] **Fix the random 'blank spaces'** 
-![screenshot](./assets/img/broken.png)
+![screenshot](/assets/img/broken.png)
 - [] **Fix the issue with not being able to walk through some doors**
 - [] **Add enemines to fight**
 - [] **Make the chest open**
