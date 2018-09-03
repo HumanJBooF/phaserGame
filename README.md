@@ -10,10 +10,10 @@
 - [] **Fix an issue with some of the walls being out of place**
 - [] **Add enemines to fight**
 - [] **Make the chest open**
-- [] **Add an inventory** 
+- [] **Add items/inventory** 
 ---
-### Screenshot showing 'blank tiles'
-![screenshot](/assets/img/broken.png)
+### Screenshot
+![screenshot](/assets/img/game.png)
 
 ## Technology used 
 * JavaScript ES6
